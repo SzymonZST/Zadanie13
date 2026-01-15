@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Zadanie 13</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+ 
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input {
+            padding: 5px;
+            width: 250px;
+        }
+
+        label.error {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 3px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Formularz rejestracyjny</h2>
+
+<form id="registerForm">
+
+    <label>Imię</label>
+    <input type="text" name="name">
+
+    <label>Email</label>
+    <input type="email" name="email">
+
+    <label>Nazwa użytkownika</label>
+    <input type="text" name="username">
+
+    <label>Hasło</label>
+    <input type="password" name="password" id="password">
+
+    <label>Powtórz hasło</label>
+    <input type="password" name="confirmPassword">
+
+    <label>Wiek</label>
+    <input type="text" name="age">
+
+    <br><br>
+    <button type="submit">Zarejestruj</button>
+
+</form>
+
+<script>
+$(document).ready(function () {
+
+  
+    const existingUsers = ["admin", "testuser", "john123", "ania"];
+
+    $.validator.addMethod("usernameAvailable", function (value) {
+        return !existingUsers.includes(value.toLowerCase());
+    }, "Taki użytkownik już istnieje");
+
+    $("#registerForm").validate({
+
+        rules: {
+            name: {
+                required: true,
+                minlength: 2
+            },
+
+            email: {
+                required: true,
+                email: true
+            },
+
+            username: {
+                required: true,
+                minlength: 3,
+                usernameAvailable: true
+            },
+
+            password: {
+                required: true,
+                minlength: 6
+            },
+
+            confirmPassword: {
+                required: true,
+                equalTo: "#password"
+            },
+
+            age: {
+                required: true,
+                digits: true,
+                min: 18
+            }
+        },
+
+        messages: {
+            name: {
+                required: "Imię jest wymagane",
+                minlength: "Imię musi mieć minimum 2 znaki"
+            },
+
+            email: {
+                required: "Email jest wymagany",
+                email: "Podaj poprawny adres email"
+            },
+
+            username: {
+                required: "Nazwa użytkownika jest wymagana",
+                minlength: "Minimum 3 znaki"
+            },
+
+            password: {
+                required: "Hasło jest wymagane",
+                minlength: "Hasło musi mieć minimum 6 znaków"
+            },
+
+            confirmPassword: {
+                required: "Powtórz hasło",
+                equalTo: "Hasła muszą być identyczne"
+            },
+
+            age: {
+                required: "Wiek jest wymagany",
+                digits: "Podaj tylko cyfry",
+                min: "Musisz mieć co najmniej 18 lat"
+            }
+        },
+
+        submitHandler: function () {
+            alert("Formularz poprawnie zwalidowany ");
+        }
+    });
+
+});
+</script>
+
+</body>
+</html>
