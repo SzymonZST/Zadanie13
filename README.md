@@ -1,22 +1,22 @@
 Reguły walidacji w projekcie:
-Formularz rejestracyjny – jQuery Validation Plugin
- Imię
+
+##Imię
 - required
 - minlength: 2
-Email
+##Email
 - required
 - email
- Nazwa użytkownika
+##Nazwa użytkownika
 - required
 - minlength: 3
 - remote (AJAX – sprawdzanie czy login istnieje)
-Hasło
+##Hasło
 - required
 - minlength: 6
- Powtórz hasło
+##Powtórz hasło
 - required
 - equalTo (musi być identyczne z hasłem)
-Wiek
+##Wiek
 - required
 - digits
 - min: 18
